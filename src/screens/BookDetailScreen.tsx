@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import BookDetail from '../components/BookDetail'
+import BookActions from '../components/BookActions'
 
 const StyledSafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -17,6 +18,7 @@ const BookDetailScreen: React.FC<BookDetailScreenProps> = ({ route }) => {
   return (
     <StyledSafeAreaView>
       <BookDetail book={book} />
+      <BookActions />
     </StyledSafeAreaView>
   )
 }

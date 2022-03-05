@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import { Doc } from '../services/search.service'
 import { getBookCoverUrl } from '../utils/book.util'
+import BookActions from './BookActions'
 
 const BookContaner = styled.TouchableOpacity`
   display: flex;
@@ -52,6 +53,7 @@ const Book: React.FC<BookProps> = ({ onPress, ...props }) => (
       <ContentLabel>{props.author_name}</ContentLabel>
       <ContentLabel>{props.first_publish_year}</ContentLabel>
     </ContentColumn>
+    <BookActions position='bottom' />
   </BookContaner>
 )
 
