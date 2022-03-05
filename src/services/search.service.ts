@@ -4,7 +4,7 @@ import { parseSearchData } from '../utils/search.util'
 const OPEN_LIBRARY_API_URL = 'http://openlibrary.org'
 
 enum OpenLibraryAPIEndpoints {
-  Search = '/search.json'
+  Search = 'search.json'
 }
 
 export interface Doc {
@@ -48,10 +48,18 @@ export interface SearchResults {
   offset?: number
 }
 
-export const useSearch = () => {
-  const { data, ...rest } = useQuery<SearchResults, Error>('searchData', () =>
-    fetch(`${OPEN_LIBRARY_API_URL}/${OpenLibraryAPIEndpoints.Search}?title=the+lord+of+the+rings`).then(res => res.json())
-  )
+export const useSearch = (searchTerm: string) => {
+  const { data, ...rest } = useQuery<SearchResults, Error>(
+    'searchData',
+    () =>
+      fetch(
+        `${OPEN_LIBRARY_API_URL}/${OpenLibraryAPIEndpoints.Search}?title=${searchTerm}`
+      ).then((res) => res.json()),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false
+    }
+  );
 
   return {
     data: data ? parseSearchData(data) : undefined,
