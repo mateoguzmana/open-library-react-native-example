@@ -9,7 +9,7 @@ const SearchInputContainer = styled.View`
   border-color: ${(props) => props.theme.borderColor};
   border-width: 1px;
   border-radius: ${(props) => props.theme.borderRadius / 2}px;
-  margin: 0 ${(props) => props.theme.spacing.large}px;
+  margin: ${({ theme: { spacing } }) => `0 ${spacing.large}px ${spacing.medium}px`};
 `
 
 const Input = styled(TextInput)`

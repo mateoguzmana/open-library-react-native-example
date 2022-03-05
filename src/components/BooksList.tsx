@@ -5,7 +5,7 @@ import Book from './Book'
 
 interface BooksListProps {
   books?: Doc[]
-  onPress: (book: Doc, index: number) => void
+  onPress: (book: Doc) => void
 }
 
 const PAGE_SIZE = 10
@@ -21,8 +21,8 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPress }) => {
     setItemsOnList(books?.slice(0, newPage * PAGE_SIZE))
   }
 
-  const renderItem: ListRenderItem<Doc> = ({ item: book, index }) =>
-    <Book {...book} key={book.cover_edition_key} onPress={() => onPress(book, index)} />
+  const renderItem: ListRenderItem<Doc> = ({ item: book }) =>
+    <Book {...book} key={book.cover_edition_key} onPress={() => onPress(book)} />
 
   return (
     <FlatList

@@ -20,6 +20,7 @@ declare module 'styled-components' {
       body: number
       title: number
       card: number
+      headline: number
     }
   }
 }
