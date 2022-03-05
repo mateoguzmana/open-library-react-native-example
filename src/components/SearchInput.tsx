@@ -34,16 +34,33 @@ const Icon = styled(Image)`
 interface SearchInputProps extends TextInputProps {
   onSearch: () => void
   displayLoader?: boolean
+  disabled?: boolean
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ onSearch, displayLoader, ...props }) => {
+const SearchInput: React.FC<SearchInputProps> = ({
+  onSearch,
+  displayLoader,
+  disabled,
+  ...props
+}) => {
   const theme = useTheme()
+  const iconColor = disabled ? theme.fontColor.disabled : theme.fontColor.body
+
+  const renderIcon = () =>
+    displayLoader ? (
+      <ActivityIndicator />
+    ) : (
+      <Icon
+        source={require("../assets/images/search-icon.png")}
+        style={{ tintColor: iconColor }}
+      />
+    )
 
   return (
     <SearchInputContainer>
       <Input {...props} placeholderTextColor={theme.fontColor.body} onSubmitEditing={onSearch} />
-      <IconContainer onPress={onSearch}>
-        {displayLoader ? <ActivityIndicator /> : <Icon source={require('../assets/images/search-icon.png')} />}
+      <IconContainer onPress={onSearch} disabled={disabled}>
+        {renderIcon()}
       </IconContainer>
     </SearchInputContainer>
   )

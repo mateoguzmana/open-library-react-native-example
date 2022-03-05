@@ -9,6 +9,7 @@ declare module 'styled-components' {
       body: string
       title: string
       card: string
+      disabled: string
     }
     borderRadius: number
     spacing: {

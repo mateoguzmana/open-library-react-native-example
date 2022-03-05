@@ -14,14 +14,16 @@ const StyledSafeAreaView = styled(SafeAreaView)`
   background-color: ${(props) => props.theme.background};
 `
 
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>
+type SearchScreenProps = NativeStackScreenProps<RootStackParamList, 'Search'>
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [isFirstSearch, setIsFirstSearch] = useState<boolean>(true)
   const { isLoading, isFetching, error, data, refetch: executeSearch } = useSearch(searchTerm)
 
   const onSearch = () => {
     if (searchTerm.length > 0) {
+      isFirstSearch && setIsFirstSearch(false)
       executeSearch()
     }
   }
@@ -39,7 +41,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const renderContent = () => {
     if (error) return <ErrorMessage />
 
-    if (!results && !loading && !error) return <ErrorMessage message='No results found' />
+    if (!results && !loading && !error && !isFirstSearch) return <ErrorMessage message='No results found' />
 
     if (results) return <BooksList books={data?.docs} onPress={onPress} />
   }
@@ -51,10 +53,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         onChangeText={onChangeText}
         onSearch={onSearch}
         displayLoader={isLoading || isFetching}
+        disabled={searchTerm.length === 0}
       />
       {renderContent()}
     </StyledSafeAreaView>
   )
 }
 
-export default HomeScreen
+export default SearchScreen

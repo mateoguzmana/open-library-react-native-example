@@ -1,11 +1,11 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from '../screens/HomeScreen'
+import SearchScreen from '../screens/SearchScreen'
 import { Doc } from '../services/search.service'
 import BookDetailScreen from '../screens/BookDetailScreen'
 
 export type RootStackParamList = {
-  Home: undefined,
+  Search: undefined,
   BookDetail: { book: Doc },
 }
 
@@ -15,8 +15,8 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='Home'
-        component={HomeScreen}
+        name='Search'
+        component={SearchScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
