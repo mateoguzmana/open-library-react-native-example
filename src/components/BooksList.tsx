@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import { Doc } from '../services/search.service'
+import { useGetWishlist } from '../services/wishlist.service'
 import Book from './Book'
 
 interface BooksListProps {
@@ -14,6 +15,7 @@ const getKeyExtractor = (book: Doc) => `${book.key}`
 const BooksList: React.FC<BooksListProps> = ({ books, onPress }) => {
   const [page, setPage] = useState(1)
   const [itemsOnList, setItemsOnList] = useState(books?.slice(0, PAGE_SIZE))
+  const { data } = useGetWishlist()
 
   const onEndReached = () => {
     const newPage = page + 1
@@ -21,8 +23,14 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPress }) => {
     setItemsOnList(books?.slice(0, newPage * PAGE_SIZE))
   }
 
-  const renderItem: ListRenderItem<Doc> = ({ item: book }) =>
-    <Book {...book} key={book.cover_edition_key} onPress={() => onPress(book)} />
+  const renderItem: ListRenderItem<Doc> = ({ item: book }) => (
+    <Book
+      book={book}
+      key={book.key}
+      onPress={() => onPress(book)}
+      isInWishlist={data?.includes(book.key) ?? false}
+    />
+  )
 
   return (
     <FlatList

@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query'
-import { parseSearchData } from '../utils/search.util'
 
 const OPEN_LIBRARY_API_URL = 'http://openlibrary.org'
 
@@ -49,20 +48,15 @@ export interface SearchResults {
 }
 
 export const useSearch = (searchTerm: string) => {
-  const { data, ...rest } = useQuery<SearchResults, Error>(
+  return useQuery<SearchResults, Error>(
     'searchData',
     () =>
       fetch(
-        `${OPEN_LIBRARY_API_URL}/${OpenLibraryAPIEndpoints.Search}?title=${searchTerm}`
+        `${OPEN_LIBRARY_API_URL}/${OpenLibraryAPIEndpoints.Search}?q=${searchTerm}`
       ).then((res) => res.json()),
     {
       refetchOnWindowFocus: false,
       enabled: false
     }
-  );
-
-  return {
-    data: data ? parseSearchData(data) : undefined,
-    ...rest
-  }
+  )
 }

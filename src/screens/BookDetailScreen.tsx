@@ -4,6 +4,7 @@ import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import BookDetail from '../components/BookDetail'
 import BookActions from '../components/BookActions'
+import { useGetWishlist } from '../services/wishlist.service'
 
 const StyledSafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -14,11 +15,13 @@ type BookDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'BookDet
 
 const BookDetailScreen: React.FC<BookDetailScreenProps> = ({ route }) => {
   const { book } = route.params
+  const { data } = useGetWishlist()
+  const isInWishlist = data?.includes(book.key) ?? false
 
   return (
     <StyledSafeAreaView>
       <BookDetail book={book} />
-      <BookActions />
+      <BookActions itemId={book.key} isInWishlist={isInWishlist} />
     </StyledSafeAreaView>
   )
 }

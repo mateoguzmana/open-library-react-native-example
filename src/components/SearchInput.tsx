@@ -1,5 +1,6 @@
 import React from 'react'
-import { ActivityIndicator, Image, TextInput, TextInputProps } from 'react-native'
+import { ActivityIndicator, TextInput, TextInputProps } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import styled, { useTheme } from 'styled-components/native'
 
 const SearchInputContainer = styled.View`
@@ -25,7 +26,7 @@ const IconContainer = styled.TouchableOpacity`
   margin: ${(props) => props.theme.spacing.medium}px;
 `
 
-const Icon = styled(Image)`
+const Icon = styled(FastImage)`
   width: 20px;
   height: 20px;
   tint-color: ${(props) => props.theme.fontColor.body};
@@ -51,7 +52,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       <ActivityIndicator />
     ) : (
       <Icon
-        source={require("../assets/images/search-icon.png")}
+        source={require('../assets/images/search-icon.png')}
         style={{ tintColor: iconColor }}
       />
     )

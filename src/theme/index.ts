@@ -17,7 +17,8 @@ const shared = {
 const colors = {
   white: '#FFFFFF',
   black: '#08090F',
-  grey: '#A8A8A8'
+  grey: '#A8A8A8',
+  orange: '#F5CA7B'
 }
 
 export const theme = {
@@ -28,6 +29,11 @@ export const theme = {
     body: colors.black,
     title: colors.black,
     card: colors.white,
+    disabled: colors.grey,
+  },
+  iconColor: {
+    wishlist: colors.orange,
+    readingList: colors.orange,
     disabled: colors.grey,
   },
   ...shared,

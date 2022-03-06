@@ -11,6 +11,11 @@ declare module 'styled-components' {
       card: string
       disabled: string
     }
+    iconColor: {
+      wishlist: string
+      readingList: string
+      disabled: string
+    }
     borderRadius: number
     spacing: {
       small: number
@@ -21,7 +26,6 @@ declare module 'styled-components' {
       body: number
       title: number
       card: number
-      headline: number
     }
   }
 }

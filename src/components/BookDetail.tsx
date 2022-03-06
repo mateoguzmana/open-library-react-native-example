@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
 import { Doc } from '../services/search.service'
 import { BookCoverSize, getBookCoverUrl } from '../utils/book.util'
@@ -10,7 +11,7 @@ const BookImageContainer = styled.View`
   justify-content: center;
 `
 
-const BookImage = styled.Image`
+const BookImage = styled(FastImage)`
   width: ${Dimensions.get('screen').width}px;
   height: ${Dimensions.get('screen').width * 0.5}px;
 `

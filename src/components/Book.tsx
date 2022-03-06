@@ -1,4 +1,5 @@
 import React from 'react'
+import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
 import { Doc } from '../services/search.service'
 import { getBookCoverUrl } from '../utils/book.util'
@@ -15,7 +16,7 @@ const BookImageContainer = styled.View`
   padding: ${(props) => props.theme.spacing.small}px;
 `
 
-const BookImage = styled.Image`
+const BookImage = styled(FastImage)`
   width: 70px;
   height: 70px;
 `
@@ -39,22 +40,26 @@ const ContentLabel = styled.Text`
   color: ${(props) => props.theme.fontColor.body};
 `
 
-interface BookProps extends Doc {
+interface BookProps {
   onPress: () => void
+  book: Doc
+  isInWishlist: boolean
 }
 
-const Book: React.FC<BookProps> = ({ onPress, ...props }) => (
+const Book: React.FC<BookProps> = ({ book, onPress, isInWishlist }) => {
+  console.log({ isInWishlist })
+  return (
   <BookContaner onPress={onPress}>
     <BookImageContainer>
-      <BookImage source={getBookCoverUrl(props.isbn)} />
+      <BookImage source={getBookCoverUrl(book.isbn)} />
     </BookImageContainer>
     <ContentColumn>
-      <ContentTitle>{props.title_suggest}</ContentTitle>
-      <ContentLabel>{props.author_name}</ContentLabel>
-      <ContentLabel>{props.first_publish_year}</ContentLabel>
+      <ContentTitle>{book.title_suggest}</ContentTitle>
+      <ContentLabel>{book.author_name}</ContentLabel>
+      <ContentLabel>{book.first_publish_year}</ContentLabel>
     </ContentColumn>
-    <BookActions position='bottom' />
+    <BookActions position='bottom' itemId={book.key} isInWishlist={isInWishlist} />
   </BookContaner>
-)
+)}
 
 export default Book
