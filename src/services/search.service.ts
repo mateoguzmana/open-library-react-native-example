@@ -35,6 +35,7 @@ export interface Doc {
   subject_facet: string[]
   lcc_sort: string
   subject_key: string[]
+  language?: string[]
 }
 
 export interface SearchResults {
