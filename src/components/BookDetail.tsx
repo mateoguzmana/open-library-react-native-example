@@ -19,15 +19,9 @@ const BookImage = styled(BookCover)`
 const ContentColumn = styled.View`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-shrink: 1;
   margin: ${(props) => props.theme.spacing.large}px;
   margin-top: ${(props) => props.theme.spacing.medium}px;
-`
-
-const ContentRow = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `
 
 const ContentTitle = styled.Text`
@@ -54,10 +48,8 @@ const BookDetail: React.FC<BookDetailProps> = ({ book }) => (
     </BookImageContainer>
     <ContentColumn>
       <ContentTitle>{book.title_suggest}</ContentTitle>
-      <ContentRow>
-        <ContentLabel>{book.author_name}</ContentLabel>
-        <ContentLabel>{book.first_publish_year}</ContentLabel>
-      </ContentRow>
+      <ContentLabel>{book.author_name}</ContentLabel>
+      <ContentLabel>{book.first_publish_year}</ContentLabel>
     </ContentColumn>
   </>
 )

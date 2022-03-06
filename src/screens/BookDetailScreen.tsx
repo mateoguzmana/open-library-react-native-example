@@ -4,7 +4,6 @@ import { RootStackParamList } from '../navigators/MainNavigator'
 import BookDetail from '../components/BookDetail'
 import BookActions from '../components/BookActions'
 import { List, useGetList } from '../services/list.service'
-import { StyledSafeAreaView } from '../components/StyledSafeAreaView'
 
 type BookDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'BookDetail'>
 
@@ -17,14 +16,14 @@ const BookDetailScreen: React.FC<BookDetailScreenProps> = ({ route }) => {
   const isInReadingGroups = getReadingGroupsData?.includes(book.key) ?? false
 
   return (
-    <StyledSafeAreaView>
+    <>
       <BookDetail book={book} />
       <BookActions
         itemId={book.key}
         isInWishlist={isInWishlist}
         isInReadingGroups={isInReadingGroups}
       />
-    </StyledSafeAreaView>
+    </>
   )
 }
 
