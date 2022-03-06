@@ -36,7 +36,7 @@ const BookActions: React.FC<BookActionProps> = ({
   isInReadingGroups
 }) => {
   const theme = useTheme()
-  const verticalPosition = position === 'top' ? { top: theme.spacing.medium } : { bottom: theme.spacing.medium }
+  const verticalPosition = position === 'top' ? { top: theme.spacing.medium } : { bottom: theme.spacing.small }
   const updateWishlist = useUpdatelist(List.Wishlist)
   const updateReadingGroups = useUpdatelist(List.ReadingGroups)
 

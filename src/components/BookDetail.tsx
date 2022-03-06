@@ -1,9 +1,9 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
-import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
 import { Doc } from '../services/search.service'
-import { BookCoverSize, getBookCoverUrl } from '../utils/book.util'
+import { BookCoverSize } from '../utils/book.util'
+import { BookCover } from './BookCover'
 
 const BookImageContainer = styled.View`
   padding-bottom: 0;
@@ -11,7 +11,7 @@ const BookImageContainer = styled.View`
   justify-content: center;
 `
 
-const BookImage = styled(FastImage)`
+const BookImage = styled(BookCover)`
   width: ${Dimensions.get('screen').width}px;
   height: ${Dimensions.get('screen').width * 0.5}px;
 `
@@ -50,7 +50,7 @@ interface BookDetailProps {
 const BookDetail: React.FC<BookDetailProps> = ({ book }) => (
   <>
     <BookImageContainer>
-      <BookImage source={getBookCoverUrl(book.isbn, BookCoverSize.large)} />
+      <BookImage book={book} size={BookCoverSize.large} />
     </BookImageContainer>
     <ContentColumn>
       <ContentTitle>{book.title_suggest}</ContentTitle>

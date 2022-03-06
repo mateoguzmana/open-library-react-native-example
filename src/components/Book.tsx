@@ -1,14 +1,14 @@
 import React, { memo } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import { Doc } from '../services/search.service'
-import { getBookCoverUrl } from '../utils/book.util'
+import { BookCoverSize } from '../utils/book.util'
 import BookActions from './BookActions'
+import { BookCover } from './BookCover'
 
-const BookContaner = styled.TouchableOpacity`
+const BookContainer = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   border-bottom-width: 1px;
@@ -19,7 +19,7 @@ const BookImageContainer = styled.View`
   padding: ${(props) => props.theme.spacing.small}px;
 `
 
-const BookImage = styled(FastImage)`
+const BookImage = styled(BookCover)`
   width: 70px;
   height: 70px;
 `
@@ -27,7 +27,7 @@ const BookImage = styled(FastImage)`
 const ContentColumn = styled.View`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-shrink: 1;
   padding: ${(props) => props.theme.spacing.small}px;
 `
 
@@ -56,9 +56,9 @@ const Book: React.FC<BookProps> = ({ book, isInWishlist, isInReadingGroups }) =>
   const onPressBook = () => navigation.navigate('BookDetail', { book })
 
   return (
-  <BookContaner onPress={onPressBook}>
+  <BookContainer onPress={onPressBook}>
     <BookImageContainer>
-      <BookImage source={getBookCoverUrl(book.isbn)} />
+      <BookImage book={book} size={BookCoverSize.medium} />
     </BookImageContainer>
     <ContentColumn>
       <ContentTitle>{book.title_suggest}</ContentTitle>
@@ -71,7 +71,7 @@ const Book: React.FC<BookProps> = ({ book, isInWishlist, isInReadingGroups }) =>
       isInWishlist={isInWishlist}
       isInReadingGroups={isInReadingGroups}
     />
-  </BookContaner>
+  </BookContainer>
 )}
 
 export default memo(Book)
