@@ -1,8 +1,7 @@
 import React from 'react'
 import FastImage from 'react-native-fast-image'
 import styled, { useTheme } from 'styled-components/native'
-import { useUpdateReadingGroups } from '../services/reading-groups.service'
-import { useUpdateWishlist } from '../services/wishlist.service'
+import { List, useUpdatelist } from '../services/list.service'
 
 const Container = styled.View`
   position: absolute;
@@ -38,8 +37,8 @@ const BookActions: React.FC<BookActionProps> = ({
 }) => {
   const theme = useTheme()
   const verticalPosition = position === 'top' ? { top: theme.spacing.medium } : { bottom: theme.spacing.medium }
-  const updateWishlist = useUpdateWishlist()
-  const updateReadingGroups = useUpdateReadingGroups()
+  const updateWishlist = useUpdatelist(List.Wishlist)
+  const updateReadingGroups = useUpdatelist(List.ReadingGroups)
 
   const onPressWishlistButton = () => updateWishlist.mutate(itemId)
   const onPressReadingGroupsButton = () => updateReadingGroups.mutate(itemId)

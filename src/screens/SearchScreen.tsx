@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import SearchInput from '../components/SearchInput'
-import { Doc, useSearch } from '../services/search.service'
+import { useSearch } from '../services/search.service'
 import ErrorMessage from '../components/ErrorMessage'
 import BooksList from '../components/BooksList'
 

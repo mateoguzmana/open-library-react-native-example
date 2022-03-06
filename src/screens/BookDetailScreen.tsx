@@ -4,8 +4,7 @@ import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import BookDetail from '../components/BookDetail'
 import BookActions from '../components/BookActions'
-import { useGetWishlist } from '../services/wishlist.service'
-import { useGetReadingGroups } from '../services/reading-groups.service'
+import { List, useGetList } from '../services/list.service'
 
 const StyledSafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -16,8 +15,8 @@ type BookDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'BookDet
 
 const BookDetailScreen: React.FC<BookDetailScreenProps> = ({ route }) => {
   const { book } = route.params
-  const { data: getWishlistData } = useGetWishlist()
-  const { data: getReadingGroupsData } = useGetReadingGroups()
+  const { data: getWishlistData } = useGetList(List.Wishlist)
+  const { data: getReadingGroupsData } = useGetList(List.ReadingGroups)
 
   const isInWishlist = getWishlistData?.includes(book.key) ?? false
   const isInReadingGroups = getReadingGroupsData?.includes(book.key) ?? false
