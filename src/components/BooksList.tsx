@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import { useGetReadingGroups } from '../services/reading-groups.service'
 import { Doc } from '../services/search.service'
@@ -14,14 +14,22 @@ const getKeyExtractor = (book: Doc) => `${book.key}`
 
 const BooksList: React.FC<BooksListProps> = ({ books }) => {
   const [page, setPage] = useState(1)
-  const [itemsOnList, setItemsOnList] = useState(books?.slice(0, PAGE_SIZE))
+  const [itemsOnList, setItemsOnList] = useState<Doc[] | []>([])
   const { data: getWishlistData } = useGetWishlist()
   const { data: getReadingGroups } = useGetReadingGroups()
 
+  useEffect(() => {
+    if (!!books?.length) {
+      setItemsOnList(books.slice(0, PAGE_SIZE))
+    }
+  }, [books]);
+
   const onEndReached = () => {
-    const newPage = page + 1
-    setPage(newPage)
-    setItemsOnList(books?.slice(0, newPage * PAGE_SIZE))
+    if (!!books?.length) {
+      const newPage = page + 1
+      setPage(newPage)
+      setItemsOnList(books.slice(0, newPage * PAGE_SIZE))
+    }
   }
 
   const renderItem: ListRenderItem<Doc> = ({ item: book }) => (
