@@ -17,6 +17,7 @@ export const useGetWishlist = () => {
 
 export const useUpdateWishlist = () => {
   const queryClient = useQueryClient()
+
   return useMutation(
     WISHLIST_KEY,
     async (itemId: string) => {

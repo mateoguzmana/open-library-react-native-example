@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
+import { RootStackParamList } from '../navigators/MainNavigator'
 import { Doc } from '../services/search.service'
 import { getBookCoverUrl } from '../utils/book.util'
 import BookActions from './BookActions'
@@ -41,15 +44,19 @@ const ContentLabel = styled.Text`
 `
 
 interface BookProps {
-  onPress: () => void
   book: Doc
   isInWishlist: boolean
+  isInReadingGroups: boolean
 }
 
-const Book: React.FC<BookProps> = ({ book, onPress, isInWishlist }) => {
-  console.log({ isInWishlist })
+type SearchScreenProps = NativeStackNavigationProp<RootStackParamList, 'Search'>;
+
+const Book: React.FC<BookProps> = ({ book, isInWishlist, isInReadingGroups }) => {
+  const navigation = useNavigation<SearchScreenProps>()
+  const onPressBook = () => navigation.navigate('BookDetail', { book })
+
   return (
-  <BookContaner onPress={onPress}>
+  <BookContaner onPress={onPressBook}>
     <BookImageContainer>
       <BookImage source={getBookCoverUrl(book.isbn)} />
     </BookImageContainer>
@@ -58,8 +65,13 @@ const Book: React.FC<BookProps> = ({ book, onPress, isInWishlist }) => {
       <ContentLabel>{book.author_name}</ContentLabel>
       <ContentLabel>{book.first_publish_year}</ContentLabel>
     </ContentColumn>
-    <BookActions position='bottom' itemId={book.key} isInWishlist={isInWishlist} />
+    <BookActions
+      position='bottom'
+      itemId={book.key}
+      isInWishlist={isInWishlist}
+      isInReadingGroups={isInReadingGroups}
+    />
   </BookContaner>
 )}
 
-export default Book
+export default memo(Book)

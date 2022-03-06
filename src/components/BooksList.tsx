@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
+import { useGetReadingGroups } from '../services/reading-groups.service'
 import { Doc } from '../services/search.service'
 import { useGetWishlist } from '../services/wishlist.service'
 import Book from './Book'
 
 interface BooksListProps {
   books?: Doc[]
-  onPress: (book: Doc) => void
 }
 
 const PAGE_SIZE = 10
 const getKeyExtractor = (book: Doc) => `${book.key}`
 
-const BooksList: React.FC<BooksListProps> = ({ books, onPress }) => {
+const BooksList: React.FC<BooksListProps> = ({ books }) => {
   const [page, setPage] = useState(1)
   const [itemsOnList, setItemsOnList] = useState(books?.slice(0, PAGE_SIZE))
-  const { data } = useGetWishlist()
+  const { data: getWishlistData } = useGetWishlist()
+  const { data: getReadingGroups } = useGetReadingGroups()
 
   const onEndReached = () => {
     const newPage = page + 1
@@ -27,8 +28,8 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPress }) => {
     <Book
       book={book}
       key={book.key}
-      onPress={() => onPress(book)}
-      isInWishlist={data?.includes(book.key) ?? false}
+      isInWishlist={getWishlistData?.includes(book.key) ?? false}
+      isInReadingGroups={getReadingGroups?.includes(book.key) ?? false}
     />
   )
 
