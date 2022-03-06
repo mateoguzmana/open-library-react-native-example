@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import SearchInput from '../components/SearchInput'
 import { useSearch } from '../services/search.service'
 import ErrorMessage from '../components/ErrorMessage'
 import BooksList from '../components/BooksList'
-
-const StyledSafeAreaView = styled(SafeAreaView)`
-  flex: 1;
-  background-color: ${(props) => props.theme.background};
-`
+import { StyledSafeAreaView } from '../components/StyledSafeAreaView'
 
 export type SearchScreenProps = NativeStackScreenProps<RootStackParamList, 'Search'>
 
@@ -29,16 +23,16 @@ const SearchScreen: React.FC<SearchScreenProps> = () => {
 
   const onChangeText = (term: string) => setSearchTerm(term)
 
-  const results = (data?.docs?.length ?? 0) > 0
+  const hasResults = (data?.docs?.length ?? 0) > 0
   const loading = isLoading || isFetching
-  const justifyContent = results || loading || error ? 'flex-start' : 'center'
+  const justifyContent = hasResults || loading || error ? 'flex-start' : 'center'
 
   const renderContent = () => {
     if (error) return <ErrorMessage />
 
-    if (!results && !loading && !error && !isFirstSearch) return <ErrorMessage message='No results found' />
+    if (!hasResults && !loading && !error && !isFirstSearch) return <ErrorMessage message='No results found' />
 
-    if (results) return <BooksList books={data?.docs} />
+    if (hasResults) return <BooksList books={data?.docs} />
   }
 
   return (

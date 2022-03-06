@@ -1,15 +1,10 @@
 import React from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import styled from 'styled-components/native'
 import { RootStackParamList } from '../navigators/MainNavigator'
 import BookDetail from '../components/BookDetail'
 import BookActions from '../components/BookActions'
 import { List, useGetList } from '../services/list.service'
-
-const StyledSafeAreaView = styled.SafeAreaView`
-  flex: 1;
-  background-color: ${(props) => props.theme.background};
-`
+import { StyledSafeAreaView } from '../components/StyledSafeAreaView'
 
 type BookDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'BookDetail'>
 
