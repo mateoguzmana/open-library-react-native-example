@@ -18,3 +18,7 @@ It will install the node modules and the pods.
 
 - iOS: `yarn ios`
 - Android: `yarn android`
+
+## Stack
+
+This project uses React Query + Async Storage for a persistent state management.
